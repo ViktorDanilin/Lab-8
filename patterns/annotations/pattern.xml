@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>pattern.jpg</filename>
+	<path>C:\Users\Viktor\PycharmProjects\Lab-8\patterns\images\pattern.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>209</width>
+		<height>202</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>pattern</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>10</xmin>
+			<ymin>5</ymin>
+			<xmax>202</xmax>
+			<ymax>194</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -17,7 +17,8 @@ while True:
         center = ((int(x+((xb-x)/2))), int(y+((yb-y)/2)))
         cv2.putText(frame, string, center, font, 0.5, (255, 0, 0))
         cv2.circle(frame, center, 5, (255, 0, 0), 2)
-
+        if center[0] > 350:
+            print('Правая половина')
     cv2.imshow("frame", frame)
 
     if cv2.waitKey(1) == ord("q"):

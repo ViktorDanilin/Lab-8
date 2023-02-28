@@ -25,11 +25,12 @@ while True:
         cv.putText(frame, string, center, font, 0.5, (255, 0, 0))
         cv.circle(frame, center, 5, (255, 0, 0), 2)
         frame[y_center:y_center + img_height, x_center:x_center + img_width] = img  # add img to center of frame
-        if center[0] > 350:  # condition for right side frame
+        if x_center > 350:  # condition for right side frame
             print('Правая половина')
     cv.imshow("frame", frame)  # show frame with contour and cord of center
 
     if cv.waitKey(1) == ord("q"):
+
         break
 
 cap.release()

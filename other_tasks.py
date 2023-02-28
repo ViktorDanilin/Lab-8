@@ -1,8 +1,11 @@
+# 4th variant
 import cv2
 import dlib
 import numpy as np
 
-model_detector = dlib.simple_object_detector("tld.swm")
+# training model on ipynb
+
+model_detector = dlib.simple_object_detector("tld.swm")  # use dlib model
 font = cv2.FONT_HERSHEY_COMPLEX
 cap = cv2.VideoCapture(0)
 
@@ -12,14 +15,14 @@ while True:
     boxes = model_detector(frame)
     for box in boxes:
         (x, y, xb, yb) = [box.left(), box.top(), box.right(), box.bottom()]
-        cv2.rectangle(frame, (x, y), (xb, yb), (0, 0, 225), 2)
+        cv2.rectangle(frame, (x, y), (xb, yb), (0, 0, 225), 2)  # drawing contour
         string = str(int(x+((xb-x)/2))) + " " + str(int(y+((yb-y)/2)))
-        center = ((int(x+((xb-x)/2))), int(y+((yb-y)/2)))
+        center = ((int(x+((xb-x)/2))), int(y+((yb-y)/2)))  # cords of center
         cv2.putText(frame, string, center, font, 0.5, (255, 0, 0))
         cv2.circle(frame, center, 5, (255, 0, 0), 2)
-        if center[0] > 350:
+        if center[0] > 350:  # condition for right side frame
             print('Правая половина')
-    cv2.imshow("frame", frame)
+    cv2.imshow("frame", frame)  # show frame with contour and cord of center
 
     if cv2.waitKey(1) == ord("q"):
         break

@@ -1,23 +1,27 @@
-import cv2 as cv
+import cv2
+import dlib
 import numpy as np
 
-cap = cv.VideoCapture(0)
+model_detector = dlib.simple_object_detector("tld.swm")
+font = cv2.FONT_HERSHEY_COMPLEX
+cap = cv2.VideoCapture(0)
 
 while True:
-
     ret, frame = cap.read()
-    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
-    # cv.imshow("hsv", hsv)
-    mask = cv.inRange(hsv, (0, 0, 20), (255, 255, 166))
-    result = cv.bitwise_and(frame, frame, mask=mask)
-    cv.imshow("result", mask)
 
-    contours, hierarchy = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
+    boxes = model_detector(frame)
+    for box in boxes:
+        (x, y, xb, yb) = [box.left(), box.top(), box.right(), box.bottom()]
+        cv2.rectangle(frame, (x, y), (xb, yb), (0, 0, 225), 2)
+        string = str(int(x+((xb-x)/2))) + " " + str(int(y+((yb-y)/2)))
+        center = ((int(x+((xb-x)/2))), int(y+((yb-y)/2)))
+        cv2.putText(frame, string, center, font, 0.5, (255, 0, 0))
+        cv2.circle(frame, center, 5, (255, 0, 0), 2)
 
-    cv.drawContours(frame, contours, -1, (0, 0, 255), 3, cv.LINE_AA, hierarchy, 2)
-    cv.imshow('contours', frame)
-    if cv.waitKey(1) == ord('q'):
+    cv2.imshow("frame", frame)
+
+    if cv2.waitKey(1) == ord("q"):
         break
 
 cap.release()
-cv.destroyAllWindows()
+cv2.destroyAllWindows()
